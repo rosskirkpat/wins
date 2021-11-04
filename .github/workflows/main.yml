@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: anchore/sbom-action@v0.3.0
         with:
-          image: rancher/wins:v0.1.1
+          image: v0.1.2-rc1-windows-1809
           format: cyclonedx
           
   publish-sbom:
@@ -25,4 +25,4 @@ jobs:
          with:
            command: release
            asset_id: assets/0ceb84f2-2285-437c-8c6a-4a5daba76691
-           attachments: '["rancher-wins-sbom_v0.1.2-rc.cyclonedx/rancher-wins-sbom_v0.1.2-rc.cyclonedx"]'
+           attachments: '["rancher-wins-sbom_v0.1.2-rc1-windows-1809.cyclonedx/rancher-wins-sbom_v0.1.2-rc1-windows-1809.cyclonedx"]'
