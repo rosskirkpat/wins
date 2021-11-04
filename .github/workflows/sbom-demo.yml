@@ -1,0 +1,29 @@
+name: Release
+on: 
+  release:
+         types: ['published']
+
+jobs:
+  generate-sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anchore/sbom-action@v0.3.0
+        with:
+          image: rancher/wins:v0.1.1
+          format: cyclonedx
+          
+  publish-sbom:
+    name: Publish SBOM to RKVST
+    runs-on: ubuntu-latest
+    steps:
+       - uses: actions/download-artifact@v2
+       - uses: leflambeur/rkvst-sbom@v0.0.5
+         env:
+           CLIENT_ID: ${{ secrets.CLIENT_ID }}
+           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+         with:
+           command: release
+           asset_id: assets/0ceb84f2-2285-437c-8c6a-4a5daba76691
+           attachments: '["rancher-wins-sbom_v0.1.2-rc.cyclonedx/rancher-wins-sbom_v0.1.2-rc.cyclonedx"]'
+
