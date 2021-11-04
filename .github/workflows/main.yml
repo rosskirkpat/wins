@@ -1,8 +1,13 @@
 name: Release
-on: 
-  release:
-         types: ['published']
-
+on: workflow_dispatch
+#   release:
+#     types: [published, created, edited]
+#   push:
+#     branches:    
+#     # Push events on main branch
+#     - master
+  
+    
 jobs:
   generate-sbom:
     name: Generate SBOM
