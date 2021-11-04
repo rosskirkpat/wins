@@ -25,5 +25,4 @@ jobs:
          with:
            command: release
            asset_id: assets/0ceb84f2-2285-437c-8c6a-4a5daba76691
-           attachments: '["rancher-wins-sbom_main.cyclonedx/rancher-wins-sbom_main.cyclonedx"]'
-
+           attachments: '["rancher-wins-sbom_v0.1.2-rc.cyclonedx/rancher-wins-sbom_v0.1.2-rc.cyclonedx"]'
