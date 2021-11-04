@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: anchore/sbom-action@v0.3.0
         with:
-          image: v0.1.2-rc1-windows-1809
+          image: rancher/wins:v0.1.2-rc1-windows-1809
           format: cyclonedx
           
   publish-sbom:
