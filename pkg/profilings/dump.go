@@ -16,7 +16,8 @@ func StackDump(cliContext bool) (bool, error) {
 	if cliContext {
 		err := callStackDump()
 		if err != nil {
-			return false, fmt.Errorf("debug: failed to call wins stack dump")
+			logrus.Errorf("StackDump: failed to call wins stack dump")
+			return false, err
 		}
 		return true, nil
 	}
@@ -80,7 +81,7 @@ func callStackDump() error {
 
 	// verify that wins is running before trying to send stackdump signal
 	if syscall.Signal(syscall.Signal(0)) == 0 {
-		logrus.Infof("Confirmed that process %d is running.", winsProcessId)
+		logrus.Debugf("Confirmed that process %d is running.", winsProcessId)
 	}
 
 	sd, err := windows.SecurityDescriptorFromString(defaults.PermissionBuiltinAdministratorsAndLocalSystem)

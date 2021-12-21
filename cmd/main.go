@@ -81,12 +81,12 @@ func main() {
 		if c.Bool("quiet") {
 			logrus.SetOutput(ioutil.Discard)
 		}
-		if c.Bool("callStackDump") {
+		if c.Bool("stackdump") {
 			logrus.SetLevel(logrus.DebugLevel)
 			grpc.EnableTracing = true
 			// manually trigger the goroutine for SetupDumpStacks
 			// TODO: StackDump returns a bool to enable further logic if StackDump succeeds
-			_, err := profilings.StackDump(c.Bool("callStackDump"))
+			_, err := profilings.StackDump(c.Bool("stackdump"))
 			if err != nil {
 				return err
 			}
