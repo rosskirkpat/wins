@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/rancher/wins/pkg/profilings"
 	"io"
 	"io/ioutil"
 	"os"
@@ -65,6 +66,11 @@ func main() {
 			Name:  "quiet",
 			Usage: "Turn on off all logging",
 		},
+		&cli.BoolFlag{
+			Name:  "callStackDump",
+			Usage: "manually trigger the goroutine for SetupDumpStacks",
+			Hidden: true,
+		},
 	}
 
 	app.Before = func(c *cli.Context) error {
@@ -75,7 +81,16 @@ func main() {
 		if c.Bool("quiet") {
 			logrus.SetOutput(ioutil.Discard)
 		}
-
+		if c.Bool("callStackDump") {
+			logrus.SetLevel(logrus.DebugLevel)
+			grpc.EnableTracing = true
+			// manually trigger the goroutine for SetupDumpStacks
+			// TODO: StackDump returns a bool to enable further logic if StackDump succeeds
+			_, err := profilings.StackDump(c.Bool("callStackDump"))
+			if err != nil {
+				return err
+			}
+		}
 		return nil
 	}
 
